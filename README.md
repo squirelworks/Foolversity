@@ -1,6 +1,7 @@
 # Foolversity
 
-Companion to Foolcourse. It makes the files. Foolcourse reads them.
+Companion to Foolcourse. Separate repository, own code.
+They do not import each other. They meet at files. See STANDARD.md.
 
 For now it generates three things:
 

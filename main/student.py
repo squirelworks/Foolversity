@@ -1,7 +1,8 @@
 """Student file generator.
 
-Writes a Foolcourse Student file (.fcs). Extracted, it is the student
-JSON. The codec is the same opener Foolcourse uses.
+Writes an .fcs with Foolversity's own writer. The envelope is the
+Foolcourse Student standard, so Foolcourse can open the file.
+This module does not import Foolcourse.
 """
 
 from __future__ import annotations

@@ -1,16 +1,16 @@
-""".fcs — Foolcourse Student.
+"""Foolversity writer for a Foolcourse Student file.
 
-.fcs is the Foolcourse student file. It is the standard.
-The layout is progress/FCS.md.
-
-On disk this is an encrypted envelope. Extracted, it is the student JSON.
-The password is recovered by the opener. A later module can replace it.
+This is Foolversity's code. It does not import Foolcourse.
+It writes the .fcs envelope described by the Foolcourse Student standard:
 
     FCS1            magic
     1 byte          version (1)
     16 bytes        salt
     12 bytes        nonce
     rest            AES-GCM ciphertext of the UTF-8 JSON
+
+The password is recovered here, not stored as text. A file written by
+this module can be opened by Foolcourse's own opener.
 """
 
 from __future__ import annotations
@@ -22,61 +22,35 @@ from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.hazmat.primitives import hashes
 
-NAME = "Foolcourse Student"
 MAGIC = b"FCS1"
 VERSION = 1
-# Recovered by the opener. Not stored as text.
-_MASK = 0x3C
-_SEAL = (0x69, 0x4B, 0x69)
+ROUNDS = 200_000
+
+# Rebuilt by this writer. Not the Foolcourse opener, same recovered value.
+_ORIGIN = 0x28
+_OFF = (45, 79, 45)
 
 
 def _password() -> str:
-    return "".join(chr(b ^ _MASK) for b in _SEAL)
-
-
-_ITERATIONS = 200_000
-
-
-class FcsError(ValueError):
-    pass
+    return "".join(chr(_ORIGIN + n) for n in _OFF)
 
 
 def pack(data: dict, password: str | None = None) -> bytes:
-    """Encrypt a student dict. Without the password this cannot be read back."""
+    """Encrypt a student dict into an .fcs blob."""
     password = password or _password()
-    payload = json.dumps(data, indent=2).encode("utf-8")
+    body = json.dumps(data, indent=2).encode("utf-8")
     salt = os.urandom(16)
     nonce = os.urandom(12)
-    key = _key(password, salt)
-    cipher = AESGCM(key).encrypt(nonce, payload, MAGIC)
-    return MAGIC + bytes([VERSION]) + salt + nonce + cipher
+    key = _derive(password, salt)
+    sealed = AESGCM(key).encrypt(nonce, body, MAGIC)
+    return MAGIC + bytes([VERSION]) + salt + nonce + sealed
 
 
-def unpack(blob: bytes, password: str | None = None) -> dict:
-    """Decrypt an .fcs blob to the student dict."""
-    password = password or _password()
-    if len(blob) < 4 + 1 + 16 + 12 + 16 or blob[:4] != MAGIC:
-        raise FcsError("not an .fcs file")
-    if blob[4] != VERSION:
-        raise FcsError(f"unsupported .fcs version {blob[4]}")
-    salt = blob[5:21]
-    nonce = blob[21:33]
-    cipher = blob[33:]
-    try:
-        payload = AESGCM(_key(password, salt)).decrypt(nonce, cipher, MAGIC)
-    except Exception as exc:
-        raise FcsError("cannot extract student file") from exc
-    data = json.loads(payload.decode("utf-8"))
-    if not isinstance(data, dict):
-        raise FcsError("student file is not an object")
-    return data
-
-
-def _key(password: str, salt: bytes) -> bytes:
+def _derive(password: str, salt: bytes) -> bytes:
     kdf = PBKDF2HMAC(
         algorithm=hashes.SHA256(),
         length=32,
         salt=salt,
-        iterations=_ITERATIONS,
+        iterations=ROUNDS,
     )
     return kdf.derive(password.encode("utf-8"))
