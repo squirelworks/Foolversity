@@ -1,12 +1,12 @@
-"""Foolversity entry.
+"""Foolversity. Makes the files. Foolcourse reads them.
 
-  python3 -m foolversity student alex --name "Alex Kim" --school nida
-  python3 -m foolversity school nida --name "Nida" --curriculum "Street sense"
-  python3 -m foolversity curriculum "Street sense" --official phone --extra reading_maps
+  python3 foolversity student alex --name "Alex Kim" --school adin
+  python3 foolversity school adin --name "Adin" --curriculum "Filing taxes" --student alex
+  python3 foolversity curriculum "Filing taxes" --official do_i_file --extra phone
 
---out is the folder to write into. For a Foolcourse tree, point --out
-at that tree: students go to _student/, curricula to _curriculum/.
-Schools go to _schools/ beside this program unless --out is set.
+Commands: student, school, curriculum.
+--out PATH   write into a Foolcourse tree (_student/, _curriculum/)
+             schools go to _schools/ beside this program unless --out is set
 """
 
 from __future__ import annotations

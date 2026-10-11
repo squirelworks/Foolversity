@@ -10,12 +10,13 @@ For now it generates three things:
 - curriculum files, the same JSON Foolcourse already reads
 
 ```bash
-python3 foolversity.py student alex --name "Alex Kim" --school nida --cohort 2026-A
-python3 foolversity.py school nida --name "Nida" --curriculum "Street sense" --student alex
-python3 foolversity.py curriculum "Street sense" --official phone --extra reading_maps
+python3 foolversity
+python3 foolversity student alex --name "Alex Kim" --school adin --cohort 2026-A
+python3 foolversity school adin --name "Adin" --curriculum "Filing taxes" --student alex
+python3 foolversity curriculum "Filing taxes" --official do_i_file --extra phone
 
 # write into a Foolcourse tree
-python3 foolversity.py student alex --out /path/to/Foolcourse
+python3 foolversity student alex --out /path/to/Foolcourse
 ```
 
 A later cut can enroll, roster, and lock the school file down. This cut
