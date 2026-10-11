@@ -4,7 +4,7 @@
   python3 foolversity school adin --name "Adin" --curriculum "Filing taxes" --student alex
   python3 foolversity curriculum "Filing taxes" --official do_i_file --extra phone
 
-Commands: student, school, curriculum.
+Commands: student, school, curriculum, gui.
 --out PATH   write into a Foolcourse tree (_student/, _curriculum/)
              schools go to _schools/ beside this program unless --out is set
 """
@@ -30,6 +30,9 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     kind = argv[0]
     rest = argv[1:]
+    if kind in ("gui", "--gui"):
+        from main.gui import main as gui_main
+        return gui_main()
     if kind == "student":
         return _student(rest)
     if kind == "school":
