@@ -31,6 +31,9 @@ def main(argv: list[str] | None = None) -> int:
         _ensure_defaults()
         from foolversity.gui import main as gui_main
         return gui_main()
+    if argv[0] == "--doctor":
+        from foolversity._debug import run
+        return run()
     if argv[0] == "--freshstart":
         return _freshstart()
     if argv[0] in ("-h", "--help"):
