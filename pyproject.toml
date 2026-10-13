@@ -5,6 +5,7 @@ description = "Student, school, and curriculum files for Foolcourse"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
+    "cryptography",
     "foolcourse @ git+https://github.com/squirelworks/Foolcourse.git@v1.0.0",
 ]
 
