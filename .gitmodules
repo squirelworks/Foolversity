@@ -1,0 +1,3 @@
+[submodule "Foolcourse"]
+	path = Foolcourse
+	url = https://github.com/squirelworks/Foolcourse.git
