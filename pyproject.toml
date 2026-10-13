@@ -18,4 +18,4 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["foolversity*"]
+include = ["foolversity*", "foollege*"]

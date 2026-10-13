@@ -20,7 +20,7 @@ if str(_root) not in sys.path:
     sys.path.insert(0, str(_root))
 
 from foolversity.curriculum import build as build_curriculum, write as write_curriculum
-from foolversity.foollege import build as build_foollege, write as write_foollege
+from foollege import build as build_foollege, write as write_foollege
 from foolversity.school import build as build_school, write as write_school
 from foolversity.student import build as build_student, write as write_student
 

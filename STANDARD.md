@@ -16,3 +16,14 @@ writer for that envelope. It is not a copy of Foolcourse's opener.
 `.school.json` is Foolversity's own file. Foolcourse does not read it.
 
 `.foollege.json` names the students a foollege holds. Foolcourse does not read it. A curriculum is figured out on its own.
+
+
+## Import chain
+
+Foolversity imports Foollege.
+Foollege imports Foolcourse.
+Foolcourse imports Foolbook.
+Foolbook imports Openscript.
+FoolbookEditor imports Foolbook.
+
+A curriculum is figured out on its own.

@@ -1,20 +1,4 @@
-"""Foollege file.
-
-Foolversity holds the courses.
-Foollege holds the students.
-Foolcourse holds the instruction.
-Foolbook opens the book.
-
-A curriculum is figured out on its own.
-OpenScript lets an old ToolBook be reused.
-
-    {
-      "id": "adin-fall",
-      "name": "Adin fall",
-      "students": ["alex"],
-      "notes": ""
-    }
-"""
+"""Foollege file. Holds students."""
 
 from __future__ import annotations
 
@@ -22,12 +6,7 @@ import json
 from pathlib import Path
 
 
-def build(
-    foollege_id: str,
-    name: str = "",
-    students: list[str] | None = None,
-    notes: str = "",
-) -> dict:
+def build(foollege_id: str, name: str = "", students: list[str] | None = None, notes: str = "") -> dict:
     return {
         "id": foollege_id,
         "name": name or foollege_id,
@@ -51,6 +30,4 @@ def load(path: Path) -> dict:
     data.setdefault("name", data["id"])
     data.setdefault("students", [])
     data.setdefault("notes", "")
-    # older files named courses. keep them readable, do not treat them as students.
-    data.pop("courses", None)
     return data
