@@ -43,8 +43,11 @@ def main() -> int:
 def _tab(nb, title, kind, add_fn):
     f = ttk.Frame(nb, padding=8)
     nb.add(f, text=title)
+    # Button first so it stays visible
+    bar = ttk.Frame(f)
+    bar.pack(fill="x", side="bottom")
     lb = tk.Listbox(f)
-    lb.pack(fill="both", expand=True)
+    lb.pack(fill="both", expand=True, side="top")
     for name in _list_files(kind):
         lb.insert("end", name)
 
@@ -57,7 +60,7 @@ def _tab(nb, title, kind, add_fn):
         add_fn()
         refresh()
 
-    ttk.Button(f, text=f"Add {title[:-1].lower()}", command=add).pack(anchor="w", pady=6)
+    ttk.Button(bar, text=f"Add {kind}", command=add).pack(side="left", pady=6)
 
 
 def _add_student():
