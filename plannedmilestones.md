@@ -24,3 +24,15 @@ Known gaps, not yet fixed:
 - tkinter is a separate package on some Linux distros (python3-tk). Windows and Mac installers usually include it.
 - --freshstart shells out to pip. Works on all three if pip is on PATH.
 - No platform test has been run on Windows or Mac. [2026-10-13]
+
+## Mobile
+
+Does not run on iOS, Android, or LineageOS. tkinter is desktop only.
+
+Scaffold, not built:
+- A mobile client would be a separate app that talks to the Foolcourse (later Foolcollege, then Foolversity) server.
+- It would fetch the book JSON and render pages, text, and buttons. No local Python, no tkinter.
+- LineageOS is Android. Same client as Android.
+- iOS needs its own build. Same protocol.
+
+Not started. [2026-10-13]
