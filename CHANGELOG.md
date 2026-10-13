@@ -21,3 +21,11 @@ Depends on Foolcourse 1.0.0.
 ## 0.9.0
 
 First release.
+
+## 1.0.0r2
+
+- Native lists for students, schools, curricula with add buttons
+- First launch opens GUI and creates a default student
+- --freshstart and --doctor
+- _debug/ dumps diagnostics
+
