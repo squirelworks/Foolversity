@@ -58,6 +58,9 @@ def _ensure_defaults():
         return
     data = build_student("student", name="Student", locale="en")
     write_student(dest / "student", data)
+
+
+def _flags(argv: list[str]) -> tuple[list[str], dict]:
     """Split positionals from --key value flags. Repeated flags become lists."""
     pos: list[str] = []
     flags: dict[str, str | list[str]] = {}
