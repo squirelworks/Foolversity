@@ -31,6 +31,8 @@ def main(argv: list[str] | None = None) -> int:
         _ensure_defaults()
         from foolversity.gui import main as gui_main
         return gui_main()
+    if argv[0] == "--freshstart":
+        return _freshstart()
     if argv[0] in ("-h", "--help"):
         print(__doc__.strip())
         return 0
@@ -50,7 +52,14 @@ def main(argv: list[str] | None = None) -> int:
     return 2
 
 
-def _ensure_defaults():
+def _freshstart() -> int:
+    """Force-reinstall this package and its dependency chain."""
+    import subprocess
+    cmd = [
+        sys.executable, "-m", "pip", "install", "--force-reinstall",
+        "git+https://github.com/squirelworks/Foolversity.git@v1.0.0r1",
+    ]
+    return subprocess.call(cmd)
     """Create a default student if none exists, so the GUI has something to show."""
     dest = Path(__file__).resolve().parents[1] / "_students"
     dest.mkdir(parents=True, exist_ok=True)
