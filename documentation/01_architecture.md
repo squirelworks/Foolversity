@@ -1,0 +1,52 @@
+# Architecture and Hierarchy
+
+## The stack
+
+```
+Foolversity          catalog of courseware (knowledge)
+  └── Foollege       intermediate layer that owns foolcourses
+        └── foolcourses
+              └── foolbooks   (may use OpenScript)
+```
+
+Supporting programs (separate repositories):
+
+- **Foolcourse** — the player. Catalogs a courses folder, launches Foolbook, records progress.
+- **Foolbook** — the reader. Opens a book (`.fbk`, `.tbk`, `.fsk`, `.sbk`), runs the common OpenScript subset, draws what it can.
+- **Foolcollege** (future) — runs students: progress, scores, sessions. Becomes the server that hands courses to Foolbook.
+- **Foolversity** (this project) — writes the files that describe students, schools, and curricula. Later becomes the main server above Foolcollege.
+
+## Boundaries
+
+Foolversity, Foolcourse, and Foolbook do not import one another. They meet at files.
+
+| File | Writer | Readers |
+|------|--------|---------|
+| `.fcs` (Foolcourse Student) | Foolversity | Foolcourse, Foolbook (each with its own opener) |
+| `.curriculum.json` | Foolversity | Foolcourse |
+| `.school.json` | Foolversity | Foolversity |
+
+See `STANDARD.md` in the repository root for the exact contract.
+
+## Foollege
+
+Foollege is the layer under Foolversity that holds foolcourses.  
+Foolcourses hold foolbooks.  
+Foolbooks can use OpenScript.
+
+It is the intermediate administrative grouping between the university-level catalog and the individual course. It is not yet a separate repository or runtime; it is the named place in the hierarchy where course ownership lives.
+
+## System books
+
+Load order is fixed:
+
+1. Core system books (shipped with Foolbook) load first.
+2. User system books load after, as mods.
+
+A user book may override a handler, replace a shape approximation, or add a new one. It cannot remove the core. This is the same discipline/deviance model used inside Foolbook itself: the core path is strict; the approximation and the user file are where variation is allowed.
+
+## Platforms
+
+Current code uses `pathlib` and `tkinter`. It is intended to run on Windows, macOS, and Linux (where Python’s tkinter package is installed). No platform-specific tests have been run yet.
+
+Mobile (iOS, Android, LineageOS) is not supported by the desktop programs. A separate client that talks to the server ladder is scaffolded under `mobile/` but not built.
