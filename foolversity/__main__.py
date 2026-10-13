@@ -60,6 +60,16 @@ def _freshstart() -> int:
         "git+https://github.com/squirelworks/Foolversity.git@v1.0.0r1",
     ]
     return subprocess.call(cmd)
+
+
+def _ensure_defaults():
+    """Create a default student if none exists, so the GUI has something to show."""
+    dest = Path(__file__).resolve().parents[1] / "_students"
+    dest.mkdir(parents=True, exist_ok=True)
+    if any(dest.glob("*.fcs")) or any(dest.glob("*.json")):
+        return
+    data = build_student("student", name="Student", locale="en")
+    write_student(dest / "student", data)
     """Create a default student if none exists, so the GUI has something to show."""
     dest = Path(__file__).resolve().parents[1] / "_students"
     dest.mkdir(parents=True, exist_ok=True)
