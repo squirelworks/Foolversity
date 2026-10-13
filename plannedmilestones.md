@@ -15,3 +15,12 @@ Later:
 - Foolversity becomes the main server above that (the catalog of courseware).
 
 Order: Foolcourse (now) -> Foolcollege -> Foolversity. [2026-10-13]
+
+## Platforms
+
+Foolversity, Foolcourse, and Foolbook use pathlib and tkinter. No hardcoded Linux paths. They should run on Windows and Mac if Python includes tkinter.
+
+Known gaps, not yet fixed:
+- tkinter is a separate package on some Linux distros (python3-tk). Windows and Mac installers usually include it.
+- --freshstart shells out to pip. Works on all three if pip is on PATH.
+- No platform test has been run on Windows or Mac. [2026-10-13]
