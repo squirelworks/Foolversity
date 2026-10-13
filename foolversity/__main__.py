@@ -1,8 +1,9 @@
 """Foolversity. Makes the files. Foolcourse reads them.
 
-  python3 foolversity student alex --name "Alex Kim" --school adin
-  python3 foolversity school adin --name "Adin" --curriculum "Filing taxes" --student alex
-  python3 foolversity curriculum "Filing taxes" --official do_i_file --extra phone
+  python3 -m foolversity                              # open the GUI
+  python3 -m foolversity student alex --name "Alex Kim" --school adin
+  python3 -m foolversity school adin --name "Adin" --curriculum "Filing taxes" --student alex
+  python3 -m foolversity curriculum "Filing taxes" --official do_i_file --extra phone
 
 Commands: student, school, curriculum, gui.
 --out PATH   write into a Foolcourse tree (_student/, _curriculum/)
@@ -25,7 +26,12 @@ from foolversity.student import build as build_student, write as write_student
 
 def main(argv: list[str] | None = None) -> int:
     argv = list(argv if argv is not None else sys.argv[1:])
-    if not argv or argv[0] in ("-h", "--help"):
+    if not argv:
+        # First launch: ensure a default student and open the GUI
+        _ensure_defaults()
+        from foolversity.gui import main as gui_main
+        return gui_main()
+    if argv[0] in ("-h", "--help"):
         print(__doc__.strip())
         return 0
     kind = argv[0]
@@ -44,7 +50,14 @@ def main(argv: list[str] | None = None) -> int:
     return 2
 
 
-def _flags(argv: list[str]) -> tuple[list[str], dict]:
+def _ensure_defaults():
+    """Create a default student if none exists, so the GUI has something to show."""
+    dest = Path(__file__).resolve().parents[1] / "_students"
+    dest.mkdir(parents=True, exist_ok=True)
+    if any(dest.glob("*.fcs")) or any(dest.glob("*.json")):
+        return
+    data = build_student("student", name="Student", locale="en")
+    write_student(dest / "student", data)
     """Split positionals from --key value flags. Repeated flags become lists."""
     pos: list[str] = []
     flags: dict[str, str | list[str]] = {}
