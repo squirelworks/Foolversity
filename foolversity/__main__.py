@@ -32,8 +32,10 @@ def main(argv: list[str] | None = None) -> int:
         from foolversity.gui import main as gui_main
         return gui_main()
     if argv[0] == "--doctor":
-        from foolversity._debug import run
-        return run()
+        from foolversity._debug.dump import dump
+        path = dump("doctor")
+        print(f"Wrote {path}")
+        return 0
     if argv[0] == "--freshstart":
         return _freshstart()
     if argv[0] in ("-h", "--help"):
