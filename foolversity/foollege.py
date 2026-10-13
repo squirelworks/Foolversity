@@ -1,14 +1,17 @@
 """Foollege file.
 
-A foollege sits under Foolversity and owns foolcourses.
-A foolcourse holds foolbooks. A foolbook can use OpenScript.
+Foolversity holds the courses.
+Foollege holds the students.
+Foolcourse holds the instruction.
+Foolbook opens the book.
 
-Plain JSON. Foolcourse reads the same shape with its own loader.
+A curriculum is figured out on its own.
+OpenScript lets an old ToolBook be reused.
 
     {
-      "id": "money",
-      "name": "Money",
-      "courses": ["do_i_file", "papers"],
+      "id": "adin-fall",
+      "name": "Adin fall",
+      "students": ["alex"],
       "notes": ""
     }
 """
@@ -22,13 +25,13 @@ from pathlib import Path
 def build(
     foollege_id: str,
     name: str = "",
-    courses: list[str] | None = None,
+    students: list[str] | None = None,
     notes: str = "",
 ) -> dict:
     return {
         "id": foollege_id,
         "name": name or foollege_id,
-        "courses": list(courses or []),
+        "students": list(students or []),
         "notes": notes,
     }
 
@@ -46,6 +49,8 @@ def load(path: Path) -> dict:
     data = json.loads(Path(path).read_text(encoding="utf-8"))
     data.setdefault("id", Path(path).stem.split(".")[0])
     data.setdefault("name", data["id"])
-    data.setdefault("courses", [])
+    data.setdefault("students", [])
     data.setdefault("notes", "")
+    # older files named courses. keep them readable, do not treat them as students.
+    data.pop("courses", None)
     return data

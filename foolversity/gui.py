@@ -87,11 +87,11 @@ def _add_foollege():
     if not fid:
         return
     name = simpledialog.askstring("New foollege", "Name") or fid
-    courses = simpledialog.askstring("New foollege", "Course ids, comma separated") or ""
+    students = simpledialog.askstring("New foollege", "Student ids, comma separated") or ""
     write_foollege(
         _dir("foollege") / fid.strip(),
         build_foollege(fid.strip(), name=name.strip(),
-                       courses=[c.strip() for c in courses.split(",") if c.strip()]),
+                       students=[s.strip() for s in students.split(",") if s.strip()]),
     )
 
 

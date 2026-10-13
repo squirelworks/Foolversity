@@ -12,7 +12,7 @@ Order: Foolcourse (now) → Foolcollege → Foolversity.
 
 ## Foollege
 
-Foollege remains the named intermediate layer under Foolversity that owns foolcourses. It may become a distinct administrative object, a separate repository, or simply a documented grouping. That decision has not been made.
+Foollege holds the students. It may become its own repository. That decision has not been made.
 
 ## Platforms
 

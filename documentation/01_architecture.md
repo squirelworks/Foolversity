@@ -3,11 +3,14 @@
 ## The stack
 
 ```
-Foolversity          catalog of courseware (knowledge)
-  └── Foollege       intermediate layer that owns foolcourses
-        └── foolcourses
-              └── foolbooks   (may use OpenScript)
+Foolversity   holds the courses
+Foollege      holds the students
+Foolcourse    holds the instruction
+Foolbook      opens the book
 ```
+
+A curriculum is figured out on its own.
+OpenScript lets an old ToolBook be reused.
 
 Supporting programs (separate repositories):
 
@@ -30,11 +33,9 @@ See `STANDARD.md` in the repository root for the exact contract.
 
 ## Foollege
 
-Foollege is the layer under Foolversity that holds foolcourses.  
-Foolcourses hold foolbooks.  
-Foolbooks can use OpenScript.
-
-It is a file Foolversity writes and Foolcourse reads. A `.foollege.json` names the courses it owns. It is not a separate repository. A curriculum still marks which of those courses are official.
+Foollege holds the students. A `.foollege.json` names them.
+It does not hold courses. Foolversity holds the courses.
+It does not hold the instruction. Foolcourse holds that.
 
 ## System books
 

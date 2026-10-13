@@ -1,0 +1,8 @@
+{
+  "id": "adin",
+  "name": "Adin",
+  "students": [
+    "student"
+  ],
+  "notes": "Holds the students of Adin."
+}

@@ -180,13 +180,13 @@ def _foollege(argv: list[str]) -> int:
     if not pos:
         print("foollege needs an id")
         return 2
-    courses = flags.get("course") or []
-    if isinstance(courses, str):
-        courses = [courses]
+    students = flags.get("student") or []
+    if isinstance(students, str):
+        students = [students]
     data = build_foollege(
         pos[0],
         name=str(flags.get("name") or ""),
-        courses=courses,
+        students=students,
         notes=str(flags.get("notes") or ""),
     )
     path = write_foollege(_out(flags, "foollege") / pos[0], data)
