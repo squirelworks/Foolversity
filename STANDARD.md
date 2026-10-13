@@ -27,3 +27,5 @@ Foolbook imports Openscript.
 FoolbookEditor imports Foolbook.
 
 A curriculum is figured out on its own.
+
+An import runs only when the installed build is not the current stable. If it already matches, the dependency is left alone.

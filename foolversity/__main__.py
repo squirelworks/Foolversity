@@ -20,6 +20,9 @@ if str(_root) not in sys.path:
     sys.path.insert(0, str(_root))
 
 from foolversity.curriculum import build as build_curriculum, write as write_curriculum
+from foollege.gate import needs_import as _needs
+if _needs("foollege", "1.0.0"):
+    import foollege  # installed build is not the current stable
 from foollege import build as build_foollege, write as write_foollege
 from foolversity.school import build as build_school, write as write_school
 from foolversity.student import build as build_student, write as write_student
