@@ -1,6 +1,6 @@
 """Foolversity window.
 
-Lists of students, schools, and curricula. Add new ones from each tab.
+Lists of students, schools, foolleges, and curricula. Add new ones from each tab.
 """
 
 from __future__ import annotations
@@ -10,13 +10,14 @@ import tkinter as tk
 from tkinter import messagebox, ttk, simpledialog
 
 from foolversity.curriculum import build as build_curriculum, write as write_curriculum
+from foolversity.foollege import build as build_foollege, write as write_foollege
 from foolversity.school import build as build_school, write as write_school
 from foolversity.student import build as build_student, write as write_student
 
 
 def _dir(kind: str) -> Path:
     here = Path(__file__).resolve().parents[1]
-    name = {"student": "_students", "school": "_schools", "curriculum": "_curricula"}[kind]
+    name = {"student": "_students", "school": "_schools", "curriculum": "_curricula", "foollege": "_foolleges"}[kind]
     dest = here / name
     dest.mkdir(parents=True, exist_ok=True)
     return dest
@@ -35,6 +36,7 @@ def main() -> int:
     nb.pack(fill="both", expand=True, padx=8, pady=8)
     _tab(nb, "Students", "student", _add_student)
     _tab(nb, "Schools", "school", _add_school)
+    _tab(nb, "Foolleges", "foollege", _add_foollege)
     _tab(nb, "Curricula", "curriculum", _add_curriculum)
     root.mainloop()
     return 0
@@ -77,6 +79,20 @@ def _add_school():
         return
     name = simpledialog.askstring("New school", "Name") or sid
     write_school(_dir("school") / sid.strip(), build_school(sid.strip(), name=name.strip()))
+
+
+
+def _add_foollege():
+    fid = simpledialog.askstring("New foollege", "Id")
+    if not fid:
+        return
+    name = simpledialog.askstring("New foollege", "Name") or fid
+    courses = simpledialog.askstring("New foollege", "Course ids, comma separated") or ""
+    write_foollege(
+        _dir("foollege") / fid.strip(),
+        build_foollege(fid.strip(), name=name.strip(),
+                       courses=[c.strip() for c in courses.split(",") if c.strip()]),
+    )
 
 
 def _add_curriculum():

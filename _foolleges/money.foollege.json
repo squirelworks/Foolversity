@@ -1,0 +1,16 @@
+{
+  "id": "money",
+  "name": "Money",
+  "courses": [
+    "do_i_file",
+    "papers",
+    "deduction",
+    "credits",
+    "file_free",
+    "after",
+    "they_change",
+    "official",
+    "read_it"
+  ],
+  "notes": "Owns the Filing taxes courses."
+}

@@ -1,0 +1,10 @@
+{
+  "id": "street",
+  "name": "Street sense",
+  "courses": [
+    "phone",
+    "reading_maps",
+    "bus_times"
+  ],
+  "notes": "Owns the Getting around courses. phone is the example official course."
+}

@@ -5,7 +5,7 @@
   python3 -m foolversity school adin --name "Adin" --curriculum "Filing taxes" --student alex
   python3 -m foolversity curriculum "Filing taxes" --official do_i_file --extra phone
 
-Commands: student, school, curriculum, gui.
+Commands: student, school, curriculum, foollege, gui.
 --out PATH   write into a Foolcourse tree (_student/, _curriculum/)
              schools go to _schools/ beside this program unless --out is set
 """
@@ -20,6 +20,7 @@ if str(_root) not in sys.path:
     sys.path.insert(0, str(_root))
 
 from foolversity.curriculum import build as build_curriculum, write as write_curriculum
+from foolversity.foollege import build as build_foollege, write as write_foollege
 from foolversity.school import build as build_school, write as write_school
 from foolversity.student import build as build_student, write as write_student
 
@@ -52,6 +53,8 @@ def main(argv: list[str] | None = None) -> int:
         return _school(rest)
     if kind == "curriculum":
         return _curriculum(rest)
+    if kind == "foollege":
+        return _foollege(rest)
     print(f"unknown: {kind}")
     print("use student, school, or curriculum")
     return 2
@@ -118,9 +121,11 @@ def _out(flags: dict, kind: str) -> Path:
             return base / "_curriculum" if base.name != "_curriculum" else base
         if kind == "school":
             return base / "_schools" if base.name != "_schools" else base
+        if kind == "foollege":
+            return base / "_foolleges" if base.name != "_foolleges" else base
         return base
     here = Path(__file__).resolve().parents[1]
-    return {"student": here / "_students", "school": here / "_schools", "curriculum": here / "_curricula"}[kind]
+    return {"student": here / "_students", "school": here / "_schools", "curriculum": here / "_curricula", "foollege": here / "_foolleges"}[kind]
 
 
 def _student(argv: list[str]) -> int:
@@ -153,14 +158,38 @@ def _school(argv: list[str]) -> int:
         curricula = [curricula]
     if isinstance(students, str):
         students = [students]
+    foolleges = flags.get("foollege") or []
+    if isinstance(foolleges, str):
+        foolleges = [foolleges]
     data = build_school(
         pos[0],
         name=str(flags.get("name") or ""),
         curricula=curricula,
         students=students,
+        foolleges=foolleges,
         notes=str(flags.get("notes") or ""),
     )
     path = write_school(_out(flags, "school") / pos[0], data)
+    print(path)
+    return 0
+
+
+
+def _foollege(argv: list[str]) -> int:
+    pos, flags = _flags(argv)
+    if not pos:
+        print("foollege needs an id")
+        return 2
+    courses = flags.get("course") or []
+    if isinstance(courses, str):
+        courses = [courses]
+    data = build_foollege(
+        pos[0],
+        name=str(flags.get("name") or ""),
+        courses=courses,
+        notes=str(flags.get("notes") or ""),
+    )
+    path = write_foollege(_out(flags, "foollege") / pos[0], data)
     print(path)
     return 0
 

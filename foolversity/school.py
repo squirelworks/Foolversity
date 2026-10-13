@@ -3,8 +3,8 @@
 Plain JSON for now. A later cut can give it an envelope.
 
     {
-      "id": "nida",
-      "name": "Nida",
+      "id": "adin",
+      "name": "Adin",
       "curricula": ["Street sense"],
       "students": ["alex"],
       "notes": ""
@@ -22,6 +22,7 @@ def build(
     name: str = "",
     curricula: list[str] | None = None,
     students: list[str] | None = None,
+    foolleges: list[str] | None = None,
     notes: str = "",
 ) -> dict:
     return {
@@ -29,6 +30,7 @@ def build(
         "name": name or school_id,
         "curricula": list(curricula or []),
         "students": list(students or []),
+        "foolleges": list(foolleges or []),
         "notes": notes,
     }
 
@@ -48,5 +50,6 @@ def load(path: Path) -> dict:
     data.setdefault("name", data["id"])
     data.setdefault("curricula", [])
     data.setdefault("students", [])
+    data.setdefault("foolleges", [])
     data.setdefault("notes", "")
     return data

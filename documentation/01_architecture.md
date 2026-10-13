@@ -34,7 +34,7 @@ Foollege is the layer under Foolversity that holds foolcourses.
 Foolcourses hold foolbooks.  
 Foolbooks can use OpenScript.
 
-It is the intermediate administrative grouping between the university-level catalog and the individual course. It is not yet a separate repository or runtime; it is the named place in the hierarchy where course ownership lives.
+It is a file Foolversity writes and Foolcourse reads. A `.foollege.json` names the courses it owns. It is not a separate repository. A curriculum still marks which of those courses are official.
 
 ## System books
 
