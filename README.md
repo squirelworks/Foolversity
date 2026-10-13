@@ -1,5 +1,7 @@
 # Foolversity
 
+Version 1.0.0. Depends on Foolcourse 1.0.0.
+
 Companion to Foolcourse. Separate repository, own code.
 They do not import each other. They meet at files. See STANDARD.md.
 
