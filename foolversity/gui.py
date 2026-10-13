@@ -1,107 +1,86 @@
 """Foolversity window.
 
-  python3 foolversity gui
-
-Three forms. Each writes the same file the matching CLI command writes.
+Lists of students, schools, and curricula. Add new ones from each tab.
 """
 
 from __future__ import annotations
 
 from pathlib import Path
 import tkinter as tk
-from tkinter import filedialog, messagebox, ttk
+from tkinter import messagebox, ttk, simpledialog
 
 from foolversity.curriculum import build as build_curriculum, write as write_curriculum
 from foolversity.school import build as build_school, write as write_school
 from foolversity.student import build as build_student, write as write_student
 
 
+def _dir(kind: str) -> Path:
+    here = Path(__file__).resolve().parents[1]
+    name = {"student": "_students", "school": "_schools", "curriculum": "_curricula"}[kind]
+    dest = here / name
+    dest.mkdir(parents=True, exist_ok=True)
+    return dest
+
+
+def _list_files(kind: str) -> list[str]:
+    d = _dir(kind)
+    return sorted(p.stem for p in d.iterdir() if p.suffix in (".fcs", ".json", ".fsk"))
+
+
 def main() -> int:
     root = tk.Tk()
     root.title("Foolversity")
-    root.geometry("520x360")
+    root.geometry("480x400")
     nb = ttk.Notebook(root)
     nb.pack(fill="both", expand=True, padx=8, pady=8)
-    _student_tab(nb)
-    _school_tab(nb)
-    _curriculum_tab(nb)
+    _tab(nb, "Students", "student", _add_student)
+    _tab(nb, "Schools", "school", _add_school)
+    _tab(nb, "Curricula", "curriculum", _add_curriculum)
     root.mainloop()
     return 0
 
 
-def _row(parent, label, var):
-    line = ttk.Frame(parent)
-    line.pack(fill="x", pady=2)
-    ttk.Label(line, text=label, width=14).pack(side="left")
-    ttk.Entry(line, textvariable=var).pack(side="left", fill="x", expand=True)
-
-
-def _student_tab(nb):
+def _tab(nb, title, kind, add_fn):
     f = ttk.Frame(nb, padding=8)
-    nb.add(f, text="Student")
-    sid, name, school, cohort = tk.StringVar(), tk.StringVar(), tk.StringVar(), tk.StringVar()
-    _row(f, "Id", sid)
-    _row(f, "Name", name)
-    _row(f, "School", school)
-    _row(f, "Cohort", cohort)
-    out = tk.StringVar(value=str(Path.cwd()))
+    nb.add(f, text=title)
+    lb = tk.Listbox(f)
+    lb.pack(fill="both", expand=True)
+    for name in _list_files(kind):
+        lb.insert("end", name)
 
-    def go():
-        if not sid.get().strip():
-            messagebox.showwarning("Foolversity", "Student needs an id")
-            return
-        dest = Path(out.get()) / "_student" / sid.get().strip()
-        path = write_student(dest, build_student(
-            sid.get().strip(), name.get().strip(), school.get().strip(),
-            cohort=cohort.get().strip(),
-        ))
-        messagebox.showinfo("Foolversity", f"Wrote {path}")
+    def refresh():
+        lb.delete(0, "end")
+        for name in _list_files(kind):
+            lb.insert("end", name)
 
-    ttk.Button(f, text="Write student", command=go).pack(anchor="w", pady=8)
+    def add():
+        add_fn()
+        refresh()
+
+    ttk.Button(f, text=f"Add {title[:-1].lower()}", command=add).pack(anchor="w", pady=6)
 
 
-def _school_tab(nb):
-    f = ttk.Frame(nb, padding=8)
-    nb.add(f, text="School")
-    sid, name, curricula, students = tk.StringVar(), tk.StringVar(), tk.StringVar(), tk.StringVar()
-    _row(f, "Id", sid)
-    _row(f, "Name", name)
-    _row(f, "Curricula", curricula)
-    _row(f, "Students", students)
-
-    def go():
-        if not sid.get().strip():
-            messagebox.showwarning("Foolversity", "School needs an id")
-            return
-        dest = Path(__file__).resolve().parents[1] / "_schools" / sid.get().strip()
-        path = write_school(dest, build_school(
-            sid.get().strip(), name.get().strip(),
-            curricula=[s.strip() for s in curricula.get().split(",") if s.strip()],
-            students=[s.strip() for s in students.get().split(",") if s.strip()],
-        ))
-        messagebox.showinfo("Foolversity", f"Wrote {path}")
-
-    ttk.Button(f, text="Write school", command=go).pack(anchor="w", pady=8)
+def _add_student():
+    sid = simpledialog.askstring("New student", "Id")
+    if not sid:
+        return
+    name = simpledialog.askstring("New student", "Name") or sid
+    write_student(_dir("student") / sid.strip(), build_student(sid.strip(), name=name.strip()))
 
 
-def _curriculum_tab(nb):
-    f = ttk.Frame(nb, padding=8)
-    nb.add(f, text="Curriculum")
-    name, official, extras = tk.StringVar(), tk.StringVar(), tk.StringVar()
-    _row(f, "Name", name)
-    _row(f, "Official ids", official)
-    _row(f, "Extra ids", extras)
+def _add_school():
+    sid = simpledialog.askstring("New school", "Id")
+    if not sid:
+        return
+    name = simpledialog.askstring("New school", "Name") or sid
+    write_school(_dir("school") / sid.strip(), build_school(sid.strip(), name=name.strip()))
 
-    def go():
-        if not name.get().strip():
-            messagebox.showwarning("Foolversity", "Curriculum needs a name")
-            return
-        dest = Path(__file__).resolve().parents[1] / "_curricula" / name.get().strip().replace(" ", "_")
-        path = write_curriculum(dest, build_curriculum(
-            name.get().strip(),
-            official=[s.strip() for s in official.get().split(",") if s.strip()],
-            extras=[s.strip() for s in extras.get().split(",") if s.strip()],
-        ))
-        messagebox.showinfo("Foolversity", f"Wrote {path}")
 
-    ttk.Button(f, text="Write curriculum", command=go).pack(anchor="w", pady=8)
+def _add_curriculum():
+    name = simpledialog.askstring("New curriculum", "Name")
+    if not name:
+        return
+    write_curriculum(
+        _dir("curriculum") / name.strip().replace(" ", "_"),
+        build_curriculum(name.strip()),
+    )
