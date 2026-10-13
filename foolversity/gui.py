@@ -11,9 +11,9 @@ from pathlib import Path
 import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
 
-from main.curriculum import build as build_curriculum, write as write_curriculum
-from main.school import build as build_school, write as write_school
-from main.student import build as build_student, write as write_student
+from foolversity.curriculum import build as build_curriculum, write as write_curriculum
+from foolversity.school import build as build_school, write as write_school
+from foolversity.student import build as build_student, write as write_student
 
 
 def main() -> int:

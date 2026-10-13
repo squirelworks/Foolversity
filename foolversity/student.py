@@ -10,7 +10,7 @@ from __future__ import annotations
 from datetime import date
 from pathlib import Path
 
-from main.fcs import pack
+from foolversity.fcs import pack
 
 
 def blank(student_id: str) -> dict:

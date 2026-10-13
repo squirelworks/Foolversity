@@ -18,9 +18,9 @@ _root = Path(__file__).resolve().parents[1]
 if str(_root) not in sys.path:
     sys.path.insert(0, str(_root))
 
-from main.curriculum import build as build_curriculum, write as write_curriculum
-from main.school import build as build_school, write as write_school
-from main.student import build as build_student, write as write_student
+from foolversity.curriculum import build as build_curriculum, write as write_curriculum
+from foolversity.school import build as build_school, write as write_school
+from foolversity.student import build as build_student, write as write_student
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -31,7 +31,7 @@ def main(argv: list[str] | None = None) -> int:
     kind = argv[0]
     rest = argv[1:]
     if kind in ("gui", "--gui"):
-        from main.gui import main as gui_main
+        from foolversity.gui import main as gui_main
         return gui_main()
     if kind == "student":
         return _student(rest)

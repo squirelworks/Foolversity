@@ -1,4 +1,9 @@
 # Changelog
+## 1.0.0r1
+
+- Package is now `foolversity`. No more `main` collision.
+- cryptography dependency declared.
+
 
 ## 1.0.0
 

@@ -6,7 +6,7 @@ readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
     "cryptography",
-    "foolcourse @ git+https://github.com/squirelworks/Foolcourse.git@v1.0.0",
+    "foolcourse @ git+https://github.com/squirelworks/Foolcourse.git@v1.0.0r1",
 ]
 
 [project.urls]
@@ -18,4 +18,4 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["foolversity*", "main*"]
+include = ["foolversity*"]
