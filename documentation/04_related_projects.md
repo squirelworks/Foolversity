@@ -32,3 +32,8 @@ Key technical notes that shaped the clean-room design:
 - TBWorldview — printable documentation of the reverse-engineering work.
 
 None of these are imported by Foolversity.
+
+## Research notes (2026-10-14)
+
+- RTM triage and nameable functions filed at `tbworkingpapers/tbwp0018/`.
+- Object struct layout and palette requirement filed at `Foolbook/documentation/research-notes.md`.
