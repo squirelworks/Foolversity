@@ -37,3 +37,13 @@ None of these are imported by Foolversity.
 
 - RTM triage and nameable functions filed at `tbworkingpapers/tbwp0018/`.
 - Object struct layout and palette requirement filed at `Foolbook/documentation/research-notes.md`.
+
+## RTM research (2026-10-14)
+
+TB80RTM is UI and memory management heavy. No named file open. Named CDB functions: `CDBSAVEBOOK`, `CDBGETVALUEEX`, `CDBSENDVALUEEX`, `CDBSETVALUEEX`.
+
+`FUN_1068_0098` is a `GLOBALALLOC` wrapper with retry on OOM. `FUN_1068_00d0` shows the OOM dialog. `FUN_1068_0000` is the dialog helper. `FUN_10d0_3166` is the window long reader.
+
+Object struct is 0x76 bytes. Bounds at `+0x0f`. GDI handle at `+0x3b`. BitBlt flag at `+0x1f`. Point count at `+0x30`, point array at `+0x32`.
+
+8bpp BMPs need the book's palette from BAS segment 1150.
