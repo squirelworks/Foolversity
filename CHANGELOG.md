@@ -1,4 +1,10 @@
 # Changelog
+## 1.0.0r3
+
+- Depends on Foolcourse 1.0.0r3.
+- `genre` asks openscript_analysis, which is not copied into this tree.
+
+
 ## 1.0.0r1
 
 - Package is now `foolversity`. No more `main` collision.

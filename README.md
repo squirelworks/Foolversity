@@ -16,6 +16,8 @@ python3 foolversity
 python3 foolversity student alex --name "Alex Kim" --school adin --cohort 2026-A
 python3 foolversity school adin --name "Adin" --curriculum "Filing taxes" --student alex
 python3 foolversity curriculum "Filing taxes" --official do_i_file --extra phone
+python3 foolversity genre VBXNEWVIEW
+
 
 # write into a Foolcourse tree
 python3 foolversity student alex --out /path/to/Foolcourse

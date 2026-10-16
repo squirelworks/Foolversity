@@ -4,8 +4,9 @@
   python3 -m foolversity student alex --name "Alex Kim" --school adin
   python3 -m foolversity school adin --name "Adin" --curriculum "Filing taxes" --student alex
   python3 -m foolversity curriculum "Filing taxes" --official do_i_file --extra phone
+  python3 -m foolversity genre VBXNEWVIEW
 
-Commands: student, school, curriculum, foollege, gui.
+Commands: student, school, curriculum, foollege, genre, gui.
 --out PATH   write into a Foolcourse tree (_student/, _curriculum/)
              schools go to _schools/ beside this program unless --out is set
 """
@@ -18,6 +19,28 @@ from pathlib import Path
 _root = Path(__file__).resolve().parents[1]
 if str(_root) not in sys.path:
     sys.path.insert(0, str(_root))
+
+
+def _genre(rest: list[str]) -> int:
+    """Ask openscript_analysis. This tree does not keep its own copy."""
+    import json
+    osa = Path(__file__).resolve().parents[2] / "openscript_analysis" / "tbk"
+    if not osa.is_dir():
+        print("the classifier is openscript_analysis, and it is not beside this tree", file=sys.stderr)
+        return 2
+    if str(osa) not in sys.path:
+        sys.path.insert(0, str(osa))
+    from openscript_analysis.genres.host import describe
+    if not rest:
+        print("usage: foolversity genre NAME", file=sys.stderr)
+        return 2
+    json.dump(describe(rest[0], refresh=True), sys.stdout, indent=2)
+    sys.stdout.write("\n")
+    return 0
+
+
+if __name__ == "__main__" and len(sys.argv) > 1 and sys.argv[1] == "genre":
+    raise SystemExit(_genre(sys.argv[2:]))
 
 from foolversity.curriculum import build as build_curriculum, write as write_curriculum
 from foollege.gate import needs_import as _needs
@@ -58,8 +81,10 @@ def main(argv: list[str] | None = None) -> int:
         return _curriculum(rest)
     if kind == "foollege":
         return _foollege(rest)
+    if kind == "genre":
+        return _genre(rest)
     print(f"unknown: {kind}")
-    print("use student, school, or curriculum")
+    print("use student, school, curriculum, or genre")
     return 2
 
 
@@ -68,7 +93,7 @@ def _freshstart() -> int:
     import subprocess
     cmd = [
         sys.executable, "-m", "pip", "install", "--force-reinstall",
-        "git+https://github.com/squirelworks/Foolversity.git@v1.0.0r2",
+        "git+https://github.com/squirelworks/Foolversity.git@v1.0.0r3",
     ]
     return subprocess.call(cmd)
 

@@ -6,7 +6,7 @@ readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
     "cryptography",
-    "foolcourse @ git+https://github.com/squirelworks/Foolcourse.git@v1.0.0r2",
+    "foolcourse @ git+https://github.com/squirelworks/Foolcourse.git@v1.0.0r3",
 ]
 
 [project.urls]
