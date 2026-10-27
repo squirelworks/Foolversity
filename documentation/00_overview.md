@@ -18,7 +18,7 @@ Foolversity is the generator of the enrollment and curriculum files those progra
 
 1. **Clean-room.** No code from the original NE engines is reused. The content model (pages, objects, handlers, system books) is reimplemented from observed behavior and documented formats.
 2. **File contract, not shared source.** Foolversity, Foolcourse, and Foolbook are separate repositories. They do not import one another. They meet at well-defined files (`.fcs`, `.curriculum.json`, `.school.json`).
-3. **Knowledge, not people.** Foolversity owns the catalog of courseware. Student progress and sessions are a future concern of Foolcollege. Foolversity only writes the files that make enrollment possible.
+3. **Knowledge, not people.** Foolversity owns the catalog of courseware. Student progress and sessions belong to Foollege. Foolcollege is another name for that same layer. Foolversity only writes the files that make enrollment possible.
 4. **Backward compatibility where it helps.** Existing ToolBook `.tbk` / `.sbk` books remain openable. New books use `.fbk` / `.fsk`.
 5. **Extensibility via system books.** Users change behavior by writing their own system books, the same way ToolBook users did. Core system books load first; user books load after as mods.
 

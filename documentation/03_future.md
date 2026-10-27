@@ -5,14 +5,14 @@
 The intended progression of which program is the server:
 
 1. **Now** — only Foolcourse is a server. Foolbook opens as a native window and does not serve.
-2. **Next** — Foolcollege becomes the server. It runs students (progress, scores, sessions) and hands courses to Foolbook.
-3. **Later** — Foolversity becomes the main server above Foolcollege. It owns the catalog of courseware.
+2. **Next** — Foollege becomes the server. It runs students (progress, scores, sessions) and hands courses to Foolbook. Foolcollege is the same layer.
+3. **Later** — Foolversity becomes the main server above Foollege. It owns the catalog of courseware.
 
-Order: Foolcourse (now) → Foolcollege → Foolversity.
+Order: Foolcourse (now) → Foollege → Foolversity.
 
 ## Foollege
 
-Foollege holds the students. It may become its own repository. That decision has not been made.
+Foollege holds the students. Foolcollege is the same name, not a second program. The repository is Foollege.
 
 ## Platforms
 
@@ -23,7 +23,7 @@ Foollege holds the students. It may become its own repository. That decision has
 
 - Curriculum maker should accept a path or file picker so the curriculum points at real courseware.
 - Enrollment, rostering, and locking of school files.
-- Stronger separation between knowledge (Foolversity) and people (Foolcollege).
+- Stronger separation between knowledge (Foolversity) and people (Foollege).
 - Continued improvement of Foolbook’s geometry: explicit points first, then TBX Vertices, then bounds approximation. The missing original expansion function is a refinement, not a blocker.
 - System-book contract: core first, user mods after.
 

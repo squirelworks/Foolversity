@@ -12,7 +12,7 @@ This module is the authoritative description of the Foolversity project: what it
 | [03_future.md](03_future.md) | Roadmap, server ladder, platforms, and open questions |
 | [04_related_projects.md](04_related_projects.md) | Foolbook, Foolcourse, ToolBook reverse-engineering context |
 | [05_file_formats.md](05_file_formats.md) | `.fcs`, `.school.json`, curriculum files, and the file contract |
-| [06_server_ladder.md](06_server_ladder.md) | From Foolcourse to Foolcollege to Foolversity |
+| [06_server_ladder.md](06_server_ladder.md) | From Foolcourse to Foollege to Foolversity |
 
 ## Reading order
 

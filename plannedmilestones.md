@@ -11,10 +11,10 @@
 Right now only Foolcourse is a server. Foolbook opens on its own as a native window and does not serve.
 
 Later:
-- Foolcollege becomes the server (runs students, hands courses to Foolbook).
+- Foollege becomes the server (runs students, hands courses to Foolbook). Foolcollege is the same layer.
 - Foolversity becomes the main server above that (the catalog of courseware).
 
-Order: Foolcourse (now) -> Foolcollege -> Foolversity. [2026-10-13]
+Order: Foolcourse (now) -> Foollege -> Foolversity. Foolcollege is Foollege, not a second program. [2026-10-27]
 
 ## Platforms
 
@@ -30,7 +30,7 @@ Known gaps, not yet fixed:
 Does not run on iOS, Android, or LineageOS. tkinter is desktop only.
 
 Scaffold, not built:
-- A mobile client would be a separate app that talks to the Foolcourse (later Foolcollege, then Foolversity) server.
+- A mobile client would be a separate app that talks to the Foolcourse (later Foollege, then Foolversity) server.
 - It would fetch the book JSON and render pages, text, and buttons. No local Python, no tkinter.
 - LineageOS is Android. Same client as Android.
 - iOS needs its own build. Same protocol.

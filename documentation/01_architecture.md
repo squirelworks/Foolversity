@@ -16,8 +16,8 @@ Supporting programs (separate repositories):
 
 - **Foolcourse** — the player. Catalogs a courses folder, launches Foolbook, records progress.
 - **Foolbook** — the reader. Opens a book (`.fbk`, `.tbk`, `.fsk`, `.sbk`), runs the common OpenScript subset, draws what it can.
-- **Foolcollege** (future) — runs students: progress, scores, sessions. Becomes the server that hands courses to Foolbook.
-- **Foolversity** (this project) — writes the files that describe students, schools, and curricula. Later becomes the main server above Foolcollege.
+- **Foollege** — holds the students. Foolcollege is the same layer, not another program. It is not a running server yet. When it is, it runs progress, scores, and sessions, and hands courses to Foolbook.
+- **Foolversity** (this project) — writes the files that describe students, schools, and curricula. Later becomes the main server above Foollege.
 
 ## Boundaries
 
